@@ -1,0 +1,30 @@
+version: 3
+
+tasks:
+  update-version:
+    desc: Update the version
+    cmd: |
+      echo "package main
+      var version = \"$(gitversion)\"" > cmd/protoc-gen-java-nats/version.go
+  build:
+    desc: Build the plugin
+    deps:
+      - update-version
+    cmds:
+      - go build -o protoc-gen-java-nats cmd/protoc-gen-java-nats/*.go
+  run:
+    desc: Run the plugin
+    deps:
+      - update-version
+    cmds:
+      - go run cmd/protoc-gen-java-nats/*.go -v
+  install:
+    desc: Install the plugin
+    deps:
+      - build
+    cmds:
+      - cp protoc-gen-java-nats ~/go/bin/protoc-gen-java-nats
+  proto:
+    desc: Generate protobuf files
+    cmds:
+      - fd -t f -e proto . proto -x protoc -I proto --java_out=proto --java-nats_out=proto --go-nats_opt=paths=source_relative {}
