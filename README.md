@@ -1,8 +1,14 @@
-# protoc-gen-java-nats
+# java-protonats
 
 This is a protoc plugin that generates Java server and client code for NATS microservices.
 
+java-protonats uses the shared [protonats](https://github.com/d0x7/protonats) package and is protocol compatible with the [Go implementation](https://github.com/d0x7/go-protonats).
+
 Prior experience with Protobuf is greatly recommended, especially to understand how the package and imports work.
+
+> [!WARNING]
+> The java plugin is currently in development and does not generate valid or working java client/server code.
+
 
 ## Installation
 
@@ -11,7 +17,7 @@ You also already need to have the protoc compiler along the Java protobuf plugin
 After that, you can go ahead and install this plugin using the following command:
 
 ```shell
-go install xiam.li/java-nats/cmd/protoc-gen-java-nats@latest
+go install xiam.li/java-protonats/cmd/protoc-gen-java-nats@latest
 ```
 
 To check if the installation was successful, you can run:
@@ -49,7 +55,7 @@ To generate the Java code for this service, run the following command.
 This command expects your proto file in a directory called `pb` in your project.
 
 ```shell
-protoc -I pb --java_out=pb --java-nats_out=pb --go-nats_opt=paths=source_relative pb/hello_world.proto
+protoc -I pb --java_out=pb --java-nats_out=pb --java-nats_opt=paths=source_relative pb/hello_world.proto
 ```
 
 This obviously requires the protoc compiler to be installed on your system
@@ -59,5 +65,3 @@ regarding NATS can be generated, the messages and everything else can also be ge
 ### Streaming
 
 Streaming is not yet supported, but is planned for the future.
-It'll probably be implemented along with better timeout handling,
-that will come with keepalive messages and therefore also allow streaming.
