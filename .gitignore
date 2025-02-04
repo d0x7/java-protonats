@@ -1,1 +1,3 @@
 .idea/
+protoc-gen-java-nats
+!/*/protoc-gen-java-nats
